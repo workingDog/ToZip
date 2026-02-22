@@ -321,11 +321,6 @@ struct ZIPExportDocument: FileDocument {
 }
 
 
-
-
-
-
-// under construction
 struct ContentViewIOS: View {
     
     @State private var fileData = Data()
@@ -336,20 +331,21 @@ struct ContentViewIOS: View {
     var body: some View {
         VStack(spacing: 35) {
             
-            Button("Input text file"){
-                fileData = Data()
-                errorMsg = ""
-                showTextImporter = true
-            }
-            .buttonStyle(.borderedProminent)
-            .disabled(!fileData.isEmpty)
-            .padding(.top, 50)
-            
-            if !fileData.isEmpty {
+            if fileData.isEmpty {
+                Button("Input file"){
+                    fileData = Data()
+                    errorMsg = ""
+                    showTextImporter = true
+                }
+                .buttonStyle(.borderedProminent)
+                .disabled(!fileData.isEmpty)
+                .controlSize(.large)
+                .padding(.top, 50)
+            } else {
                 Text(fileURL.lastPathComponent).font(.title)
                 FileZipExporterViewIOS(fileData: $fileData, fileURL: $fileURL, errorMsg: $errorMsg)
             }
-            
+
             if !errorMsg.isEmpty {
                 Text(errorMsg)
             }
@@ -428,7 +424,7 @@ struct FileZipExporterViewIOS: View {
                 Button("Cancel") {
                     thePassword = ""
                     retryPassword = ""
-                    fileData = Data() // set to empty, that is dismiss
+                    fileData = Data()  // dismiss
                 }
                 .buttonStyle(.borderedProminent)
                 .padding(.horizontal, 20)
