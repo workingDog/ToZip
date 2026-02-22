@@ -390,7 +390,7 @@ struct ContentViewIOS: View {
 }
 
 struct FileZipExporterViewIOS: View {
-    
+
     @Binding var fileData: Data
     @Binding var fileURL: URL
     @Binding var errorMsg: String
@@ -416,7 +416,7 @@ struct FileZipExporterViewIOS: View {
             
             HStack {
                 Spacer()
-                Button("Save to ZIP file") {
+                Button("Save") {
                     if passwordsMatch {
                         createEncryptedZipData()
                     }
@@ -425,9 +425,10 @@ struct FileZipExporterViewIOS: View {
                 .disabled(!passwordsMatch || fileData.isEmpty)
                 .padding(.horizontal, 20)
                 
-                Button("Clear Passwords") {
+                Button("Cancel") {
                     thePassword = ""
                     retryPassword = ""
+                    fileData = Data() // set to empty, that is dismiss
                 }
                 .buttonStyle(.borderedProminent)
                 .padding(.horizontal, 20)
