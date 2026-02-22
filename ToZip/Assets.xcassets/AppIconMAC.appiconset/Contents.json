@@ -1,61 +1,61 @@
 {
   "images" : [
     {
-      "filename" : "zipy1-16.png",
+      "filename" : "tozip2-16.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "16x16"
     },
     {
-      "filename" : "zipy1-32.png",
+      "filename" : "tozip2-32.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "16x16"
     },
     {
-      "filename" : "zipy1-32.png",
+      "filename" : "tozip2-32.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "32x32"
     },
     {
-      "filename" : "zipy1-64.png",
+      "filename" : "tozip2-64.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "32x32"
     },
     {
-      "filename" : "zipy1-128.png",
+      "filename" : "tozip2-128.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "128x128"
     },
     {
-      "filename" : "zipy1-256.png",
+      "filename" : "tozip2-256.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "128x128"
     },
     {
-      "filename" : "zipy1-256.png",
+      "filename" : "tozip2-256.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "256x256"
     },
     {
-      "filename" : "zipy1-512.png",
+      "filename" : "tozip2-512.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "256x256"
     },
     {
-      "filename" : "zipy1-512.png",
+      "filename" : "tozip2-512.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "512x512"
     },
     {
-      "filename" : "zipy1-1024.png",
+      "filename" : "tozip2-1024.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "512x512"
