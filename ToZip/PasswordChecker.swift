@@ -49,9 +49,6 @@ struct PasswordStrengthEvaluator {
             default: strength = .strong
         }
 
-        return .init(entropyBits: entropy, strength: strength)
+        return PasswordStrengthResult(entropyBits: entropy, strength: strength)
     }
 }
-
-
-

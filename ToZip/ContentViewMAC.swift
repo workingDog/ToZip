@@ -81,12 +81,9 @@ struct ContentViewMAC: View {
             }
         }
         .sheet(isPresented: $showPasswordSheet) {
-            FileZipExporterView(
-                fileData: $fileData,
-                fileURL: $fileURL,
-                errorMsg: $errorMsg,
-                isPresented: $showPasswordSheet
-            )
+            FileZipExporterView(fileData: $fileData, fileURL: $fileURL, errorMsg: $errorMsg) {
+                showPasswordSheet = false
+            }
         }
     }
     

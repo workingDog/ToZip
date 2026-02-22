@@ -9,13 +9,13 @@ import UniformTypeIdentifiers
 import ZipArchive
 
 
-
 struct FileZipExporterView: View {
-    
+
     @Binding var fileData: Data
     @Binding var fileURL: URL
     @Binding var errorMsg: String
-    @Binding var isPresented: Bool
+
+    var onDone: (() -> Void)?
     
     @State private var thePassword = ""
     @State private var retryPassword = ""
@@ -48,15 +48,13 @@ struct FileZipExporterView: View {
                 PasswordTextField(title: "ZIP File Password", text: $thePassword)
                 PasswordTextField(title: "Confirm Password", text: $retryPassword)
                 
-                Text(thePassword.trimmingCharacters(in: .whitespaces).isEmpty ? " " : "Password strength: \(pswStrength.strength.rawValue)")
+                Text(thePassword.trim().isEmpty ? " " : "Password strength: \(pswStrength.strength.rawValue)")
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 if !errorMsg.isEmpty {
-                    Text(errorMsg)
-                        .foregroundColor(.red)
-                        .font(.caption)
+                    Text(errorMsg).foregroundColor(.red)
                 }
             }
             .padding(.horizontal)
@@ -90,14 +88,14 @@ struct FileZipExporterView: View {
             defaultFilename: "\(fileURL.deletingPathExtension().lastPathComponent).zip"
         ) { result in
             switch result {
-            case .success:
-                dismiss()
-            case .failure(let error):
-                print(error)
-                exportData = Data()
-                thePassword = ""
-                retryPassword = ""
-                errorMsg = "Could not export the file. Please try again."
+                case .success:
+                    dismiss()
+                case .failure(let error):
+                    print(error)
+                    exportData = Data()
+                    thePassword = ""
+                    retryPassword = ""
+                    errorMsg = "Could not export the file. Please try again."
             }
         }
     }
@@ -109,7 +107,7 @@ struct FileZipExporterView: View {
         fileData = Data()
         fileURL = FileManager.default.temporaryDirectory
         errorMsg = ""
-        isPresented = false
+        onDone?()
     }
     
     private func createEncryptedZipData() {

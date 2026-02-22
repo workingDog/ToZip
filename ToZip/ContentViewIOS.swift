@@ -33,7 +33,7 @@ struct ContentViewIOS: View {
                 .controlSize(.large)
                 .padding(.top, 40)
             } else {
-                FileZipExporterView(fileData: $fileData, fileURL: $fileURL, errorMsg: $errorMsg, isPresented: .constant(true))
+                FileZipExporterView(fileData: $fileData, fileURL: $fileURL, errorMsg: $errorMsg)
             }
             
             if !errorMsg.isEmpty {
