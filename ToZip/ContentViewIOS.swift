@@ -62,7 +62,7 @@ struct ContentViewIOS: View {
         }
     }
     
-    func readFileContent() {
+    private func readFileContent() {
         guard fileURL.startAccessingSecurityScopedResource() else {  return }
         defer { fileURL.stopAccessingSecurityScopedResource() }
         do {

@@ -1,7 +1,7 @@
 #  ToZip
 
 
-A very basic SwiftUI app to convert a text file (or any other file type), to a password protected ZIP file.
+A very basic SwiftUI app to convert a text file (or any other file type) to a password protected ZIP file.
 
 The ZIP file is encrypted using the ZIP compatible AES-256 encryption.
 
@@ -16,7 +16,7 @@ AES-256 ZIP with a long random password is remarkably very secure.
 ### Usage
 
 On a Mac, drag and drop a file into the app, or select the **Browse for File** option.
-On ios devices (under construction),the app ask the user to choose an input file.
+On ios devices,the app ask the user to choose an input file.
 
 A password for the ZIP file is then asked for. 
 

@@ -90,27 +90,21 @@ struct ContentViewMAC: View {
         }
     }
     
-    func handleDrop(urls: [URL]) -> Bool {
+    private func handleDrop(urls: [URL]) -> Bool {
         guard let url = urls.first else { return false }
         guard url.isFileURL else { return false }
         fileURL = url
-        readDroppedFileContent(url: url)
+        readFile()
         return true
     }
     
-    func readDroppedFileContent(url: URL) {
-        do {
-            fileData = try Data(contentsOf: url)
-            errorMsg = ""
-            showPasswordSheet = true
-        } catch {
-            errorMsg = error.localizedDescription
-        }
-    }
-    
-    func readFileContent() {
+    private func readFileContent() {
         guard fileURL.startAccessingSecurityScopedResource() else { return }
         defer { fileURL.stopAccessingSecurityScopedResource() }
+        readFile()
+    }
+    
+    private func readFile() {
         do {
             fileData = try Data(contentsOf: fileURL)
             errorMsg = ""
@@ -119,4 +113,5 @@ struct ContentViewMAC: View {
             errorMsg = error.localizedDescription
         }
     }
+    
 }

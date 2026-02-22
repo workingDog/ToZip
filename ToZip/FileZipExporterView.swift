@@ -102,7 +102,7 @@ struct FileZipExporterView: View {
         }
     }
     
-    func dismiss() {
+    private func dismiss() {
         exportData = Data()
         thePassword = ""
         retryPassword = ""
@@ -112,7 +112,7 @@ struct FileZipExporterView: View {
         isPresented = false
     }
     
-    func createEncryptedZipData() {
+    private func createEncryptedZipData() {
         let fm = FileManager.default
         let tempDir = fm.temporaryDirectory
         let tempFileURL = tempDir.appendingPathComponent(fileURL.lastPathComponent)
