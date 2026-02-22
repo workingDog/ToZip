@@ -17,7 +17,7 @@ struct ContentViewIOS: View {
     @State private var showTextImporter = false
     
     var body: some View {
-        VStack(spacing: 35) {
+        VStack(spacing: 10) {
             Image("zipy").resizable()
                 .scaledToFit()
                 .padding(10)
@@ -31,9 +31,8 @@ struct ContentViewIOS: View {
                 .buttonStyle(.borderedProminent)
                 .disabled(!fileData.isEmpty)
                 .controlSize(.large)
-                .padding(.top, 50)
+                .padding(.top, 40)
             } else {
-                Text(fileURL.lastPathComponent).font(.title)
                 FileZipExporterView(fileData: $fileData, fileURL: $fileURL, errorMsg: $errorMsg, isPresented: .constant(true))
             }
             

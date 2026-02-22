@@ -11,7 +11,7 @@ import ZipArchive
 
 
 struct FileZipExporterView: View {
-
+    
     @Binding var fileData: Data
     @Binding var fileURL: URL
     @Binding var errorMsg: String
@@ -31,43 +31,57 @@ struct FileZipExporterView: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(spacing: 10) {
+            Text("Encrypt and ZIP")
+                .font(.title)
+                .padding(.horizontal)
             
-            PasswordTextField(title: "ZIP File Password", text: $thePassword)
-            PasswordTextField(title: "Confirm Password", text: $retryPassword)
+            Label(fileURL.lastPathComponent, systemImage: "doc.fill")
+                .font(.title2)
+                .lineLimit(1)
+                .truncationMode(.middle)
+                .padding(.horizontal)
             
-            HStack {
-                Spacer()
+            Divider()
+            
+            VStack(spacing: 12) {
+                PasswordTextField(title: "ZIP File Password", text: $thePassword)
+                PasswordTextField(title: "Confirm Password", text: $retryPassword)
+                
+                Text(thePassword.trimmingCharacters(in: .whitespaces).isEmpty ? " " : "Password strength: \(pswStrength.strength.rawValue)")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                if !errorMsg.isEmpty {
+                    Text(errorMsg)
+                        .foregroundColor(.red)
+                        .font(.caption)
+                }
+            }
+            .padding(.horizontal)
+            
+            HStack(spacing: 12) {
+                Button("Cancel") {
+                    dismiss()
+                }.buttonStyle(.borderedProminent)
+                
                 Button("Save") {
                     if passwordsMatch {
                         createEncryptedZipData()
                     }
-                }
-                .buttonStyle(.borderedProminent)
+                }.buttonStyle(.borderedProminent)
                 .disabled(!passwordsMatch || fileData.isEmpty)
-                .padding(.horizontal, 20)
-                
-                Button("Cancel") {
-                    thePassword = ""
-                    retryPassword = ""
-                    dismiss()
-                }
-                .buttonStyle(.borderedProminent)
-                .padding(.horizontal, 20)
-                Spacer()
             }
-            
-            if !thePassword.trim().isEmpty {
-                Text("Password \(pswStrength.strength.rawValue)").padding(.top, 30)
-            }
-            
+            .padding(.bottom)
         }
-        .padding(15)
+        .frame(minWidth: 360, minHeight: 270)
         .onAppear {
             thePassword = ""
+            retryPassword = ""
         }
         .onDisappear {
-            fileURL = FileManager.default.temporaryDirectory
+            dismiss()
         }
         .fileExporter(
             isPresented: $showExporter,
@@ -101,9 +115,7 @@ struct FileZipExporterView: View {
     func createEncryptedZipData() {
         let fm = FileManager.default
         let tempDir = fm.temporaryDirectory
-        
         let tempFileURL = tempDir.appendingPathComponent(fileURL.lastPathComponent)
-        
         let tempZipURL = tempDir
             .appendingPathComponent("\(fileURL.lastPathComponent)_\(UUID().uuidString)")
             .appendingPathExtension("zip")
@@ -114,7 +126,6 @@ struct FileZipExporterView: View {
                 try? fm.removeItem(at: tempZipURL)
             }
             
-            // Write ANY file data (text, image, pdf, etc.)
             try fileData.write(to: tempFileURL, options: [.atomic])
             
             let success = SSZipArchive.createZipFile(
@@ -135,7 +146,6 @@ struct FileZipExporterView: View {
             errorMsg = error.localizedDescription
         }
     }
-    
 }
 
 struct PasswordTextField: View {
