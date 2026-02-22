@@ -57,7 +57,6 @@ struct FileZipExporterView: View {
                 Spacer()
             }
             
-            // just for fun
             if !thePassword.trim().isEmpty {
                 Text("Password \(pswStrength.strength.rawValue)").padding(.top, 30)
             }
