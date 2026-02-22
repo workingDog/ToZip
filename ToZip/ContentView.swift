@@ -329,8 +329,12 @@ struct ContentViewIOS: View {
     @State private var showTextImporter = false
     
     var body: some View {
-        VStack(spacing: 35) {
+        VStack {
             
+            Image("zipy").resizable().padding(10)
+            
+            VStack(spacing: 35) {
+                
             if fileData.isEmpty {
                 Button("Input file"){
                     fileData = Data()
@@ -345,13 +349,14 @@ struct ContentViewIOS: View {
                 Text(fileURL.lastPathComponent).font(.title)
                 FileZipExporterViewIOS(fileData: $fileData, fileURL: $fileURL, errorMsg: $errorMsg)
             }
-
+            
             if !errorMsg.isEmpty {
                 Text(errorMsg)
             }
             
             Spacer()
         }
+    }
         .fileImporter(
             isPresented: $showTextImporter,
             allowedContentTypes: [.item],
