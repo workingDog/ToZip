@@ -8,15 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		C77D93772F4AA13F00AB5251 /* ZipArchive in Frameworks */ = {isa = PBXBuildFile; productRef = C77D93762F4AA13F00AB5251 /* ZipArchive */; };
+		C781AD092F4AE7BD00D0B266 /* picture1.png in Resources */ = {isa = PBXBuildFile; fileRef = C781AD082F4AE7BD00D0B266 /* picture1.png */; };
+		C781AD0B2F4AE7C200D0B266 /* picture2.png in Resources */ = {isa = PBXBuildFile; fileRef = C781AD0A2F4AE7C200D0B266 /* picture2.png */; };
 		C7C98BEC2F4AA1F500E82BC1 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C7C98BEB2F4AA1F500E82BC1 /* README.md */; };
-		C7C98BEE2F4AA21B00E82BC1 /* picture2a.png in Resources */ = {isa = PBXBuildFile; fileRef = C7C98BED2F4AA21B00E82BC1 /* picture2a.png */; };
-		C7C98BF02F4AA22300E82BC1 /* picture1a.png in Resources */ = {isa = PBXBuildFile; fileRef = C7C98BEF2F4AA22300E82BC1 /* picture1a.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C781AD082F4AE7BD00D0B266 /* picture1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = picture1.png; sourceTree = "<group>"; };
+		C781AD0A2F4AE7C200D0B266 /* picture2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = picture2.png; sourceTree = "<group>"; };
 		C7C98BEB2F4AA1F500E82BC1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		C7C98BED2F4AA21B00E82BC1 /* picture2a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = picture2a.png; sourceTree = "<group>"; };
-		C7C98BEF2F4AA22300E82BC1 /* picture1a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = picture1a.png; sourceTree = "<group>"; };
 		C7E3AF6D2F4A9800007924D0 /* ToZip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToZip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -46,8 +46,8 @@
 				C7C98BEB2F4AA1F500E82BC1 /* README.md */,
 				C7E3AF6F2F4A9800007924D0 /* ToZip */,
 				C7E3AF6E2F4A9800007924D0 /* Products */,
-				C7C98BED2F4AA21B00E82BC1 /* picture2a.png */,
-				C7C98BEF2F4AA22300E82BC1 /* picture1a.png */,
+				C781AD082F4AE7BD00D0B266 /* picture1.png */,
+				C781AD0A2F4AE7C200D0B266 /* picture2.png */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,8 +128,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7C98BEC2F4AA1F500E82BC1 /* README.md in Resources */,
-				C7C98BEE2F4AA21B00E82BC1 /* picture2a.png in Resources */,
-				C7C98BF02F4AA22300E82BC1 /* picture1a.png in Resources */,
+				C781AD0B2F4AE7C200D0B266 /* picture2.png in Resources */,
+				C781AD092F4AE7BD00D0B266 /* picture1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

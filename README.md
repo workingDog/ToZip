@@ -8,8 +8,8 @@ The ZIP file is encrypted using the ZIP compatible AES-256 encryption.
 AES-256 ZIP with a long random password is remarkably very secure.
 
 <p float="left">
-  <img src="picture1a.png" width="300" height="400" /> 
-  <img src="picture2a.png" width="300" height="400" /> 
+  <img src="picture1.png" width="300" height="400" /> 
+  <img src="picture2.png" width="300" height="400" /> 
 </p>
 
 
