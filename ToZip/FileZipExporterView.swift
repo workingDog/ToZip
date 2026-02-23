@@ -32,6 +32,15 @@ struct FileZipExporterView: View {
     
     var body: some View {
         VStack(spacing: 10) {
+            
+#if os(macOS)
+            HStack {
+                Image(systemName: "x.circle").font(.title).padding(10)
+                    .onTapGesture { dismiss() }
+                Spacer()
+            }
+#endif
+            
             Text("Encrypt and ZIP")
                 .font(.title)
                 .padding(.horizontal)
