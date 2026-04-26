@@ -63,8 +63,12 @@ struct ContentViewIOS: View {
     }
     
     private func readFileContent() {
-        guard fileURL.startAccessingSecurityScopedResource() else {  return }
-        defer { fileURL.stopAccessingSecurityScopedResource() }
+        let didStartAccessing = fileURL.startAccessingSecurityScopedResource()
+        defer {
+            if didStartAccessing {
+                fileURL.stopAccessingSecurityScopedResource()
+            }
+        }
         do {
             fileData = try Data(contentsOf: fileURL)
         } catch {
