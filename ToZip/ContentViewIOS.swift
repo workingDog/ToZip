@@ -11,9 +11,8 @@ import ZipArchive
 
 struct ContentViewIOS: View {
     
-    @State private var fileData = Data()
     @State private var errorMsg = ""
-    @State private var fileURL: URL = FileManager.default.temporaryDirectory
+    @State private var fileURL: URL?
     @State private var showTextImporter = false
     
     var body: some View {
@@ -22,18 +21,18 @@ struct ContentViewIOS: View {
                 .scaledToFit()
                 .padding(10)
             
-            if fileData.isEmpty {
+            if fileURL == nil {
                 Button("Browse for file"){
-                    fileData = Data()
+                    fileURL = nil
                     errorMsg = ""
                     showTextImporter = true
                 }
                 .buttonStyle(.borderedProminent)
-                .disabled(!fileData.isEmpty)
+                .disabled(fileURL != nil)
                 .controlSize(.large)
                 .padding(.top, 40)
             } else {
-                FileZipExporterView(fileData: $fileData, fileURL: $fileURL, errorMsg: $errorMsg)
+                FileZipExporterView(fileURL: $fileURL, errorMsg: $errorMsg)
             }
             
             if !errorMsg.isEmpty {
@@ -63,18 +62,17 @@ struct ContentViewIOS: View {
     }
     
     private func readFileContent() {
+        guard let fileURL else {
+            errorMsg = "Could not access the selected file."
+            return
+        }
         let didStartAccessing = fileURL.startAccessingSecurityScopedResource()
         defer {
             if didStartAccessing {
                 fileURL.stopAccessingSecurityScopedResource()
             }
         }
-        do {
-            fileData = try Data(contentsOf: fileURL)
-        } catch {
-            print(error)
-            errorMsg = error.localizedDescription
-        }
+        errorMsg = ""
     }
     
 }

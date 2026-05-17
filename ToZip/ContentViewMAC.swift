@@ -11,9 +11,8 @@ import ZipArchive
 
 struct ContentViewMAC: View {
     
-    @State private var fileData = Data()
     @State private var errorMsg = ""
-    @State private var fileURL: URL = FileManager.default.temporaryDirectory
+    @State private var fileURL: URL?
     @State private var showTextImporter = false
     @State private var showPasswordSheet = false
     @State private var isTargeted = false
@@ -39,7 +38,7 @@ struct ContentViewMAC: View {
                 Text("or").font(.title).foregroundColor(.accentColor)
                 
                 Button("Browse for File") {
-                    fileData = Data()
+                    fileURL = nil
                     errorMsg = ""
                     showTextImporter = true
                 }
@@ -81,7 +80,7 @@ struct ContentViewMAC: View {
             }
         }
         .sheet(isPresented: $showPasswordSheet) {
-            FileZipExporterView(fileData: $fileData, fileURL: $fileURL, errorMsg: $errorMsg) {
+            FileZipExporterView(fileURL: $fileURL, errorMsg: $errorMsg) {
                 showPasswordSheet = false
             }
         }
@@ -96,6 +95,10 @@ struct ContentViewMAC: View {
     }
     
     private func readFileContent() {
+        guard let fileURL else {
+            errorMsg = "Could not access the selected file."
+            return
+        }
         let didStartAccessing = fileURL.startAccessingSecurityScopedResource()
         defer {
             if didStartAccessing {
@@ -106,13 +109,12 @@ struct ContentViewMAC: View {
     }
     
     private func readFile() {
-        do {
-            fileData = try Data(contentsOf: fileURL)
-            errorMsg = ""
-            showPasswordSheet = true
-        } catch {
-            errorMsg = error.localizedDescription
+        guard fileURL != nil else {
+            errorMsg = "Could not access the selected file."
+            return
         }
+        errorMsg = ""
+        showPasswordSheet = true
     }
     
 }

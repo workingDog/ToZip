@@ -11,8 +11,7 @@ import ZipArchive
 
 struct FileZipExporterView: View {
 
-    @Binding var fileData: Data
-    @Binding var fileURL: URL
+    @Binding var fileURL: URL?
     @Binding var errorMsg: String
 
     var onDone: (() -> Void)?
@@ -45,7 +44,7 @@ struct FileZipExporterView: View {
                 .font(.title)
                 .padding(.horizontal)
             
-            Label(fileURL.lastPathComponent, systemImage: "doc.fill")
+            Label(fileURL?.lastPathComponent ?? "No file selected", systemImage: "doc.fill")
                 .font(.title2)
                 .lineLimit(1)
                 .truncationMode(.middle)
@@ -78,7 +77,7 @@ struct FileZipExporterView: View {
                         createEncryptedZipData()
                     }
                 }.buttonStyle(.borderedProminent)
-                .disabled(!passwordsMatch || fileData.isEmpty)
+                .disabled(!passwordsMatch || fileURL == nil)
             }
             .padding(.bottom)
         }
@@ -94,7 +93,7 @@ struct FileZipExporterView: View {
             isPresented: $showExporter,
             document: ZIPExportDocument(data: exportData),
             contentType: .zip,
-            defaultFilename: "\(fileURL.deletingPathExtension().lastPathComponent).zip"
+            defaultFilename: "\(fileURL?.deletingPathExtension().lastPathComponent ?? "Archive").zip"
         ) { result in
             switch result {
                 case .success:
@@ -113,31 +112,35 @@ struct FileZipExporterView: View {
         exportData = Data()
         thePassword = ""
         retryPassword = ""
-        fileData = Data()
-        fileURL = FileManager.default.temporaryDirectory
+        fileURL = nil
         errorMsg = ""
         onDone?()
     }
     
     private func createEncryptedZipData() {
+        guard let fileURL else {
+            errorMsg = "Could not access the selected file."
+            return
+        }
+        
         let fm = FileManager.default
         let tempDir = fm.temporaryDirectory
-        let tempFileURL = tempDir.appendingPathComponent(fileURL.lastPathComponent)
         let tempZipURL = tempDir
             .appendingPathComponent("\(fileURL.lastPathComponent)_\(UUID().uuidString)")
             .appendingPathExtension("zip")
+        let didStartAccessing = fileURL.startAccessingSecurityScopedResource()
         
         do {
             defer {
-                try? fm.removeItem(at: tempFileURL)
+                if didStartAccessing {
+                    fileURL.stopAccessingSecurityScopedResource()
+                }
                 try? fm.removeItem(at: tempZipURL)
             }
             
-            try fileData.write(to: tempFileURL, options: [.atomic])
-            
             let success = SSZipArchive.createZipFile(
                 atPath: tempZipURL.path,
-                withFilesAtPaths: [tempFileURL.path],
+                withFilesAtPaths: [fileURL.path],
                 withPassword: thePassword.trim()
             )
             
