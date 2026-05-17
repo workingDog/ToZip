@@ -138,7 +138,7 @@ struct FileZipExporterView: View {
             let success = SSZipArchive.createZipFile(
                 atPath: tempZipURL.path,
                 withFilesAtPaths: [tempFileURL.path],
-                withPassword: thePassword
+                withPassword: thePassword.trim()
             )
             
             guard success else {
